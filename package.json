@@ -1,7 +1,7 @@
 
 {
   "name": "react-native-mtalkingdata",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "react-native library for talkingdata",
   "main": "index.js",
   "scripts": {
