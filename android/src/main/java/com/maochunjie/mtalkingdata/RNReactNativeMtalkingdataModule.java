@@ -1,5 +1,5 @@
 
-package com.manmanbuy.mtalkingdata;
+package com.maochunjie.mtalkingdata;
 
 import android.content.Context;
 import com.facebook.react.bridge.*;

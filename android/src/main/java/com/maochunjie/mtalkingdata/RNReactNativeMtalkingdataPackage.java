@@ -1,5 +1,5 @@
 
-package com.manmanbuy.mtalkingdata;
+package com.maochunjie.mtalkingdata;
 
 import java.util.Arrays;
 import java.util.Collections;
