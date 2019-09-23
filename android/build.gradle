@@ -35,6 +35,6 @@ repositories {
 
 dependencies {
     compile 'com.facebook.react:react-native:+'
-    compile files('libs/SaaS_AppAnalytics_Android_SDK_V4.0.25.jar')
+    compile files('libs/SaaS_AppAnalytics_Android_SDK_V4.0.33.jar')
 }
   
