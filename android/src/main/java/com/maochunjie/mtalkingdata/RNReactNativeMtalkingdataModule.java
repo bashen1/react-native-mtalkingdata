@@ -4,7 +4,6 @@ package com.maochunjie.mtalkingdata;
 import android.content.Context;
 import com.facebook.react.bridge.*;
 
-import com.talkingdata.sdk.TDAntiCheatingService;
 import com.tendcloud.tenddata.TCAgent;
 import com.tendcloud.tenddata.TDAccount;
 
