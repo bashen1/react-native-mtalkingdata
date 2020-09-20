@@ -141,7 +141,6 @@ typedef NS_ENUM(NSUInteger, TDAccountType) {
 
 
 
-
 /**
  *  @method setAccountId:
  *  设置帐户ID
@@ -165,7 +164,6 @@ typedef NS_ENUM(NSUInteger, TDAccountType) {
  *  @param  name        账户昵称
  */
 + (void)onLogin:(NSString *)accountId type:(TDAccountType)type name:(NSString *)name;
-
 #endif
 
 /**
@@ -194,6 +192,19 @@ typedef NS_ENUM(NSUInteger, TDAccountType) {
 + (void)trackEvent:(NSString *)eventId
              label:(NSString *)eventLabel
         parameters:(NSDictionary *)parameters;
+
+/**
+ *  @method trackEvent:label:parameters:value:
+ *  数值事件
+ *  @param  eventId     事件名称（自定义）
+ *  @param  eventLabel  事件标签（自定义）
+ *  @param  parameters  事件参数 (key只支持NSString, value支持NSString和NSNumber)
+ *  @param  eventValue  事件数值（double）
+ */
++ (void)trackEvent:(NSString *)eventId
+             label:(NSString *)eventLabel
+        parameters:(NSDictionary *)parameters
+             value:(double)eventValue;
 
 /**
  *  @method setGlobalKV:value:
@@ -237,7 +248,6 @@ typedef NS_ENUM(NSUInteger, TDAccountType) {
  */
 + (void)onPlaceOrder:(NSString *)accountId order:(TalkingDataOrder *)order;
 
-
 /**
  *  @method onOrderPaySucc  支付
  *  @param  accountId       账户ID          类型:NSString
@@ -271,9 +281,6 @@ typedef NS_ENUM(NSUInteger, TDAccountType) {
  */
 + (void)onViewShoppingCart:(TalkingDataShoppingCart *)shoppingCart;
 #endif
-
-
-
 
 
 
