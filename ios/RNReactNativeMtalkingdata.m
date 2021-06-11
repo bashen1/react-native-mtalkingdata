@@ -26,6 +26,40 @@ RCT_EXPORT_MODULE()
 #endif
 }
 
+RCT_EXPORT_METHOD(initSDK: (NSDictionary *)param resolve: (RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
+    NSString *appID = @"";
+    NSString *channelID = @"default";
+    NSString *crashReport = @"true";
+  
+    if ((NSString *)param[@"appID"] != nil) {
+        appID = (NSString *)param[@"appID"];
+    }
+    
+    if ((NSString *)param[@"channelID"] != nil) {
+        channelID = (NSString *)param[@"channelID"];
+    }
+    
+    if ((NSString *)param[@"crashReport"] != nil) {
+        crashReport = (NSString *)param[@"crashReport"];
+    }
+    
+    if(![appID isEqual: @""]){
+        Boolean isCrashReport = YES;
+        if([crashReport isEqual:@"false"]){
+            isCrashReport = NO;
+        }
+        [TalkingData setExceptionReportEnabled:isCrashReport];
+        [TalkingData setSignalReportEnabled:isCrashReport];
+        
+        [TalkingData sessionStarted:appID withChannelId:channelID];
+        NSDictionary *ret = @{@"code": @"0", @"message":@"success"};
+        resolve(ret);
+    }else{
+        NSDictionary *ret = @{@"code": @"1", @"message":@"AppKey为空"};
+        resolve(ret);
+    }
+}
+
 RCT_EXPORT_METHOD(trackPageBegin:(NSString *)page_name) {
     [TalkingData trackPageBegin:page_name];
 }

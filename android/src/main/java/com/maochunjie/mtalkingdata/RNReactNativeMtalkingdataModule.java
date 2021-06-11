@@ -2,10 +2,9 @@
 package com.maochunjie.mtalkingdata;
 
 import android.content.Context;
-import com.facebook.react.bridge.*;
 
+import com.facebook.react.bridge.*;
 import com.tendcloud.tenddata.TCAgent;
-import com.tendcloud.tenddata.TDAccount;
 
 import java.util.HashMap;
 
@@ -40,16 +39,29 @@ public class RNReactNativeMtalkingdataModule extends ReactContextBaseJavaModule 
     }
 
     @Override
-    public void initialize() {
-        super.initialize();
-        if (!registered) {
-            register(reactContext, null, null, true);
-        }
-    }
-
-    @Override
     public void onCatalystInstanceDestroy() {
         super.onCatalystInstanceDestroy();
+    }
+
+    @ReactMethod
+    public void initSDK(final ReadableMap data, final Promise p) {
+        String appID = data.getString("appID");
+        String channelID = data.getString("channelID");
+        String crashReport = data.getString("crashReport");
+        boolean isCrashReport = true;
+        if (crashReport.equals("false")) {
+            isCrashReport = false;
+        }
+        if (!appID.equals("")) {
+            register(reactContext, appID, channelID, isCrashReport);
+        } else {
+            register(reactContext, null, null, isCrashReport);
+        }
+
+        WritableMap map = Arguments.createMap();
+        map.putString("message", "success");
+        map.putString("code", Integer.toString(0));
+        p.resolve(map);
     }
 
     @ReactMethod
