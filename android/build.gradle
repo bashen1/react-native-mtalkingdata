@@ -35,6 +35,6 @@ repositories {
 
 dependencies {
     implementation 'com.facebook.react:react-native:+'
-    implementation files('libs/SaaS_AppAnalytics_Android_SDK_V4.0.58.jar')
+    implementation files('libs/SaaS_TalkingDataSDK_Android_V5.0.2.jar')
 }
   

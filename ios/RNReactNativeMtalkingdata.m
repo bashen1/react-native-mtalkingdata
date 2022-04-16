@@ -1,6 +1,6 @@
 
 #import "RNReactNativeMtalkingdata.h"
-#import "TalkingData.h"
+#import "TalkingDataSDK.h"
 
 @implementation RNReactNativeMtalkingdata
 
@@ -10,26 +10,22 @@
 }
 RCT_EXPORT_MODULE()
 
-
-+ (void)registerApp:(NSString *)appId channelID:(NSString *)channelID crashReport:(BOOL)report {
++ (void)registerApp:(NSString *)appId channelID:(NSString *)channelID customParam:(NSString *)customParam crashReport:(BOOL)report {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         if (report) {
-            [TalkingData setExceptionReportEnabled:YES];
-            [TalkingData setSignalReportEnabled:YES];
+            [TalkingDataSDK setExceptionReportEnabled:YES];
+            [TalkingDataSDK setSignalReportEnabled:YES];
         }
-        [TalkingData sessionStarted:appId withChannelId:channelID];
+        [TalkingDataSDK init: appId channelId: channelID custom: customParam];
     });
-    
-#ifdef DEBUG
-    [TalkingData setLogEnabled:YES];
-#endif
 }
 
 RCT_EXPORT_METHOD(initSDK: (NSDictionary *)param resolve: (RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
     NSString *appID = @"";
     NSString *channelID = @"default";
     NSString *crashReport = @"true";
+    NSString *customParam = @"";
   
     if ((NSString *)param[@"appID"] != nil) {
         appID = (NSString *)param[@"appID"];
@@ -43,50 +39,41 @@ RCT_EXPORT_METHOD(initSDK: (NSDictionary *)param resolve: (RCTPromiseResolveBloc
         crashReport = (NSString *)param[@"crashReport"];
     }
     
+    if ((NSString *)param[@"customParam"] != nil) {
+        customParam = (NSString *)param[@"customParam"];
+    }
+    
     if(![appID isEqual: @""]){
         Boolean isCrashReport = YES;
         if([crashReport isEqual:@"false"]){
             isCrashReport = NO;
         }
-        [TalkingData setExceptionReportEnabled:isCrashReport];
-        [TalkingData setSignalReportEnabled:isCrashReport];
-        
-        [TalkingData sessionStarted:appID withChannelId:channelID];
+        [TalkingDataSDK setExceptionReportEnabled: isCrashReport];
+        [TalkingDataSDK setSignalReportEnabled: isCrashReport];
+        [TalkingDataSDK init: appID channelId: channelID custom: customParam];
         NSDictionary *ret = @{@"code": @"0", @"message":@"success"};
         resolve(ret);
     }else{
-        NSDictionary *ret = @{@"code": @"1", @"message":@"AppKey为空"};
+        NSDictionary *ret = @{@"code": @"1", @"message":@"appID为空"};
         resolve(ret);
     }
 }
 
 RCT_EXPORT_METHOD(trackPageBegin:(NSString *)page_name) {
-    [TalkingData trackPageBegin:page_name];
+    [TalkingDataSDK onPageBegin: page_name];
 }
 
 RCT_EXPORT_METHOD(trackPageEnd:(NSString *)page_name) {
-    [TalkingData trackPageEnd:page_name];
+    [TalkingDataSDK onPageEnd: page_name];
 }
 
-RCT_EXPORT_METHOD(trackEvent:(NSString *)event_name label:(NSString *)event_label parameters:(NSDictionary *)parameters) {
-    if (event_label == nil) {
-        [TalkingData trackEvent:event_name];
-    }
-    else if (parameters == nil){
-        [TalkingData trackEvent:event_name label:event_label];
-    }
-    else {
-        [TalkingData trackEvent:event_name label:event_label parameters:parameters];
-    }
+RCT_EXPORT_METHOD(trackEvent:(NSString *)event_name parameters:(NSDictionary *)parameters) {
+    [TalkingDataSDK onEvent: event_name value: 0 parameters: parameters];
 }
 
 RCT_EXPORT_METHOD(getDeviceID:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
-    NSString *deviceID = [TalkingData getDeviceID];
+    NSString *deviceID = [TalkingDataSDK getDeviceId];
     resolve(deviceID);
-}
-
-RCT_EXPORT_METHOD(setLogEnabled:(BOOL)enabled) {
-    [TalkingData setLogEnabled:enabled];
 }
 
 @end

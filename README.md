@@ -1,6 +1,12 @@
 
 # react-native-mtalkingdata
 
+[![npm version](https://badge.fury.io/js/react-native-mtalkingdata.svg)](https://badge.fury.io/js/react-native-mtalkingdata)
+
+Android SDK Version: 5.0.2
+
+iOS SDK Version: 5.0.2
+
 ## 开始
 
 `$ npm install react-native-mtalkingdata --save`
@@ -14,13 +20,13 @@
 
 打开工程的 `AppDelegate.m`
   - 在头部引入 `#import "RNReactNativeMtalkingdata.h"`
-  - 在 `didFinishLaunchingWithOptions` 方法下添加 `[RNReactNativeMtalkingdata registerApp:@"APPID" channelID:@"RNMMB_IOS" crashReport:YES];`
+  - 在 `didFinishLaunchingWithOptions` 方法下添加 `[RNReactNativeMtalkingdata registerApp:@"APPID" channelID:@"RNMMB_IOS" customParam:@"" crashReport:NO];`
 
 #### Android
 
 1. 打开 `android/app/src/main/java/[...]/MainActivity.java`
   - 在顶部添加 `import com.reactlibrary.RNReactNativeMtalkingdataModule;`
-  - 在onCreate方法下添加 `RNReactNativeMtalkingdataModule.register(getApplicationContext(), null, null, true);`
+  - 在onCreate方法下添加 `RNReactNativeMtalkingdataModule.register(getApplicationContext(), "appID", "channelID", "", false);`
 2. 打开 `android/app/build.gradle` ，在 `defaultConfig` 下添加:   
     ```
     manifestPlaceholders = [
@@ -36,25 +42,26 @@ import * as mTalkingdata from 'react-native-react-native-mtalkingdata';
 
 initSDK = () => {
     mTalkingdata.initSDK({
-        appID: '', // android 下为空，读取manifestPlaceholders中的值
+        appID: '',
         channelID: '',
-        crashReport: 'true'
+        crashReport: 'true',
+        customParam: '',
     });
 };
 
-trackPageBegain = () => {
-    mTalkingdata.trackPageBegain('pageName');
+trackPageBegin = () => {
+    mTalkingdata.trackPageBegin('pageName');
 };
 
-trackPageBegain = () => {
+trackPageEnd = () => {
     mTalkingdata.trackPageEnd('pageName');
 };
 
-trackPageBegain = (eventId, eventLabel, parameters) => {
-    mTalkingdata.trackEvent(eventId, eventLabel, parameters);
+trackEvent = (eventId, parameters) => {
+    mTalkingdata.trackEvent(eventId, parameters);
 };
 
-trackPageBegain = async () => {
+getDeviceID = async () => {
     alert(JSON.stringify(await mTalkingdata.getDeviceID()));
 };
 ```

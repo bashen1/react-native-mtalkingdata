@@ -9,6 +9,7 @@ const {RNReactNativeMtalkingdata} = NativeModules;
  *     appID: '',
  *     channelID: '',
  *     crashReport: true,
+ *     customParam: '',
  * }
  * @returns {Promise<InitResult|*|void>}
  */
@@ -24,8 +25,8 @@ export function trackPageEnd(pageName) {
     RNReactNativeMtalkingdata.trackPageEnd(pageName);
 }
 
-export function trackEvent(eventId, eventLabel, parameters) {
-    RNReactNativeMtalkingdata.trackEvent(eventId, eventLabel, parameters);
+export function trackEvent(eventId, parameters) {
+    RNReactNativeMtalkingdata.trackEvent(eventId, parameters);
 }
 
 export async function getDeviceID() {

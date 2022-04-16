@@ -6,6 +6,6 @@
 #endif
 
 @interface RNReactNativeMtalkingdata : NSObject <RCTBridgeModule>
-+ (void)registerApp:(NSString *)appId channelID:(NSString *)channelID crashReport:(BOOL)report;
++ (void)registerApp:(NSString *)appId channelID:(NSString *)channelID customParam:(NSString *)customParam crashReport:(BOOL)report;
+
 @end
-  
