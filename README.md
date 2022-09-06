@@ -3,9 +3,9 @@
 
 [![npm version](https://badge.fury.io/js/react-native-mtalkingdata.svg)](https://badge.fury.io/js/react-native-mtalkingdata)
 
-Android SDK Version: 5.0.2
+Android SDK Version: 5.0.8
 
-iOS SDK Version: 5.0.2
+iOS SDK Version: 5.0.9
 
 ## 开始
 
