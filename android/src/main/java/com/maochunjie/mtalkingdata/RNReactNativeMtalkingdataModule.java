@@ -90,7 +90,7 @@ public class RNReactNativeMtalkingdataModule extends ReactContextBaseJavaModule 
                     map.put(key, new Double(parameters.getDouble(key)));
                 }
             }
-            TalkingDataSDK.onEvent(getReactApplicationContext(), eventName, 0, map);
+            TalkingDataSDK.onEvent(getReactApplicationContext(), eventName, map);
         } catch (Exception e) {
             e.printStackTrace();
         }
