@@ -177,6 +177,13 @@ typedef NS_ENUM(NSUInteger, TalkingDataGender) {
  */
 + (void)onPageEnd:(NSString *)pageName;
 
+#if TARGET_OS_IOS
+/**
+ *  获取延时链接
+ */
++ (NSString *)getDeferredLink;
+#endif
+
 /**
  *  唤醒事件
  *  @param  link            唤醒链接
@@ -259,10 +266,10 @@ typedef NS_ENUM(NSUInteger, TalkingDataGender) {
 /**
  *  自定义事件
  *  @param  eventId         事件名称
- *  @param  eventValue      事件数值
  *  @param  parameters      事件参数 (key只支持NSString, value支持NSString和NSNumber)
  */
-+ (void)onEvent:(NSString *)eventId value:(double)eventValue parameters:(NSDictionary *)parameters;
++ (void)onEvent:(NSString *)eventId parameters:(NSDictionary *)parameters;
++ (void)onEvent:(NSString *)eventId value:(double)eventValue parameters:(NSDictionary *)parameters API_DEPRECATED_WITH_REPLACEMENT("onEvent:parameters", ios(1,1));
 
 /**
  *  添加自定义事件全局参数

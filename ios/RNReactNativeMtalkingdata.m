@@ -68,7 +68,7 @@ RCT_EXPORT_METHOD(trackPageEnd:(NSString *)page_name) {
 }
 
 RCT_EXPORT_METHOD(trackEvent:(NSString *)event_name parameters:(NSDictionary *)parameters) {
-    [TalkingDataSDK onEvent: event_name value: 0 parameters: parameters];
+    [TalkingDataSDK onEvent: event_name parameters: parameters];
 }
 
 RCT_EXPORT_METHOD(getDeviceID:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
