@@ -3,9 +3,9 @@
 
 [![npm version](https://badge.fury.io/js/react-native-mtalkingdata.svg)](https://badge.fury.io/js/react-native-mtalkingdata)
 
-Android SDK Version: 5.0.12
+Android SDK Version: 5.0.13
 
-iOS SDK Version: 5.0.12
+iOS SDK Version: 5.0.13
 
 ## 开始
 
@@ -46,6 +46,7 @@ initSDK = () => {
         channelID: '',
         crashReport: 'true',
         customParam: '',
+        complianceRegulations: 'true', //用于隐私合规，目前传入则禁用应用列表获取
     });
 };
 
@@ -65,4 +66,3 @@ getDeviceID = async () => {
     alert(JSON.stringify(await mTalkingdata.getDeviceID()));
 };
 ```
-  
