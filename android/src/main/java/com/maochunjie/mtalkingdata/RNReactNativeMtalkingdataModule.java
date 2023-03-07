@@ -47,6 +47,10 @@ public class RNReactNativeMtalkingdataModule extends ReactContextBaseJavaModule 
         String channelID = data.getString("channelID");
         String customParam = data.getString("customParam");
         String crashReport = data.getString("crashReport");
+        String complianceRegulations = data.getString("complianceRegulations");
+        if (complianceRegulations != null && complianceRegulations.equals("true")) {
+            TalkingDataSDK.setConfigurationDisable(TalkingDataSDK.ANTI_CHEATING_DISABLE);
+        }
         boolean isCrashReport = true;
         if (crashReport.equals("false")) {
             isCrashReport = false;
