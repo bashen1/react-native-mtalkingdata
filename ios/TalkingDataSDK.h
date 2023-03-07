@@ -21,6 +21,11 @@ typedef NS_ENUM(NSUInteger, TalkingDataVendorIdType) {
     TalkingDataVendorIdTypeGX           = 2,    // 广协
 };
 
+typedef NS_ENUM(NSInteger, TalkingDataSharingFilter) {
+    TalkingDataSharingFilterShare       = 0,    // 可共享
+    TalkingDataSharingFilterUnshare     = 1,    // 不可共享
+};
+
 typedef NS_ENUM(NSUInteger, TalkingDataProfileType) {
     TalkingDataProfileTypeAnonymous     = 0,    // 匿名账户
     TalkingDataProfileTypeRegistered    = 1,    // 显性注册账户
@@ -146,6 +151,12 @@ typedef NS_ENUM(NSUInteger, TalkingDataGender) {
  */
 + (void)setLatitude:(double)latitude longitude:(double)longitude;
 
+/**
+ *  设置自定义数据是否可共享
+ *  @param flag             是否可共享
+ */
++ (void)setCustomDataSwitch:(TalkingDataSharingFilter)flag;
+
 #if TARGET_OS_IOS
 /**
  *  是否捕捉程序崩溃记录
@@ -177,12 +188,13 @@ typedef NS_ENUM(NSUInteger, TalkingDataGender) {
  */
 + (void)onPageEnd:(NSString *)pageName;
 
-#if TARGET_OS_IOS
 /**
- *  获取延时链接
+ *  获取短链
+ *  @param params           生成短链所参数
+ *  @param callback         返回结果
  */
-+ (NSString *)getDeferredLink;
-#endif
++ (void)getShortUrl:(NSDictionary *)params callback:(void (^)(NSString *shortUrl))callback;
+
 
 /**
  *  唤醒事件
@@ -195,14 +207,18 @@ typedef NS_ENUM(NSUInteger, TalkingDataGender) {
  *  @param  profileId       账户ID
  *  @param  profile         账户属性
  *  @param  invitationCode  邀请码
+ *  @param  eventValue      用户自定义事件参数
  */
++ (void)onRegister:(NSString *)profileId profile:(TalkingDataProfile *)profile invitationCode:(NSString *)invitationCode eventValue:(NSDictionary *)eventValue;
 + (void)onRegister:(NSString *)profileId profile:(TalkingDataProfile *)profile invitationCode:(NSString *)invitationCode;
 
 /**
  *  登录
  *  @param  profileId       账户ID
  *  @param  profile         账户属性
+ *  @param  eventValue      用户自定义事件参数
  */
++ (void)onLogin:(NSString *)profileId profile:(TalkingDataProfile *)profile eventValue:(NSDictionary *)eventValue;
 + (void)onLogin:(NSString *)profileId profile:(TalkingDataProfile *)profile;
 
 /**
@@ -223,14 +239,18 @@ typedef NS_ENUM(NSUInteger, TalkingDataGender) {
  *  收藏
  *  @param  category        收藏类别
  *  @param  content         收藏内容
+ *  @param  eventValue      用户自定义事件参数
  */
++ (void)onFavorite:(NSString *)category content:(NSString *)content eventValue:(NSDictionary *)eventValue;
 + (void)onFavorite:(NSString *)category content:(NSString *)content;
 
 /**
  *  分享
  *  @param  profileId       账户ID
  *  @param  content         分享内容
+ *  @param  eventValue      用户自定义事件参数
  */
++ (void)onShare:(NSString *)profileId content:(NSString *)content eventValue:(NSDictionary *)eventValue;
 + (void)onShare:(NSString *)profileId content:(NSString *)content;
 
 /**
@@ -267,7 +287,9 @@ typedef NS_ENUM(NSUInteger, TalkingDataGender) {
  *  自定义事件
  *  @param  eventId         事件名称
  *  @param  parameters      事件参数 (key只支持NSString, value支持NSString和NSNumber)
+ *  @param  eventValue      用户自定义事件参数
  */
++ (void)onEvent:(NSString *)eventId parameters:(NSDictionary *)parameters eventValue:(NSDictionary *)eventValue;
 + (void)onEvent:(NSString *)eventId parameters:(NSDictionary *)parameters;
 + (void)onEvent:(NSString *)eventId value:(double)eventValue parameters:(NSDictionary *)parameters API_DEPRECATED_WITH_REPLACEMENT("onEvent:parameters", ios(1,1));
 
