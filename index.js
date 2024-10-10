@@ -17,6 +17,10 @@ export function initSDK(params) {
     RNReactNativeMtalkingdata.initSDK(params);
 }
 
+export function startSDK() {
+    RNReactNativeMtalkingdata.startSDK();
+}
+
 export function trackPageBegin(pageName) {
     RNReactNativeMtalkingdata.trackPageBegin(pageName);
 }
