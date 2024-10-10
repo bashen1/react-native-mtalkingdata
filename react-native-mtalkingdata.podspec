@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   s.resources     = ['*.bundle', '*.strings']
   s.requires_arc  = true
 
-  s.vendored_libraries = "ios/libTalkingDataSDK.a"
+  s.vendored_frameworks = "ios/*.xcframework"
 
   s.dependency "React"
 

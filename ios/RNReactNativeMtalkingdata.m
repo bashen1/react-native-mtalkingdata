@@ -17,7 +17,7 @@ RCT_EXPORT_MODULE()
             [TalkingDataSDK setExceptionReportEnabled:YES];
             [TalkingDataSDK setSignalReportEnabled:YES];
         }
-        [TalkingDataSDK init: appId channelId: channelID custom: customParam];
+        [TalkingDataSDK initSDK: appId channelId: channelID custom: customParam];
     });
 }
 
@@ -50,13 +50,17 @@ RCT_EXPORT_METHOD(initSDK: (NSDictionary *)param resolve: (RCTPromiseResolveBloc
         }
         [TalkingDataSDK setExceptionReportEnabled: isCrashReport];
         [TalkingDataSDK setSignalReportEnabled: isCrashReport];
-        [TalkingDataSDK init: appID channelId: channelID custom: customParam];
+        [TalkingDataSDK initSDK: appID channelId: channelID custom: customParam];
         NSDictionary *ret = @{@"code": @"0", @"message":@"success"};
         resolve(ret);
     }else{
         NSDictionary *ret = @{@"code": @"1", @"message":@"appID为空"};
         resolve(ret);
     }
+}
+
+RCT_EXPORT_METHOD(startSDK) {
+    [TalkingDataSDK startA];
 }
 
 RCT_EXPORT_METHOD(trackPageBegin:(NSString *)page_name) {
