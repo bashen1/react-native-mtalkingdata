@@ -1,0 +1,6 @@
+framework module TalkingDataSDK {
+  umbrella header "TalkingDataSDK.h"
+
+  export *
+  module * { export * }
+}

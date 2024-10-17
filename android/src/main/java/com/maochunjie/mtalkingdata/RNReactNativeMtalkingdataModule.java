@@ -27,7 +27,7 @@ public class RNReactNativeMtalkingdataModule extends ReactContextBaseJavaModule 
     public static void register(Context context, String appID, String channelID, String tdCustom, boolean reportExceptions) {
         if (!registered) {
             // tdCustom 仅 AdTracking
-            TalkingDataSDK.init(context, appID, channelID, tdCustom);
+            TalkingDataSDK.initSDK(context, appID, channelID, tdCustom);
             if (reportExceptions) {
                 TalkingDataSDK.setReportUncaughtExceptions(true);
             }
@@ -66,6 +66,11 @@ public class RNReactNativeMtalkingdataModule extends ReactContextBaseJavaModule 
         }
 
         p.resolve(map);
+    }
+
+    @ReactMethod
+    public void startSDK() {
+        TalkingDataSDK.startA(getReactApplicationContext());
     }
 
     @ReactMethod
